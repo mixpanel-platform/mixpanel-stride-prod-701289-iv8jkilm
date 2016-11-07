@@ -37,13 +37,27 @@
           var utms = new Set();
           var initializationResults = results.values();
           var conversionResults = results2.values();
+
           _.each(initializationResults, function(dates, utm){
-            console.log(dates);
             graphObj[utm] = {};
             if(utm in conversionResults){
-              
+              _.each(dates, function(initializationEventCount, date){
+                if(date in conversionResults[utm]){
+                  if(initializationEventCount > 0){
+                    graphObj[utm][date] = conversionResults[utm][date] / initializationEventCount;
+                  }else{
+                    graphObj[utm][date] = 0;
+                  }
+                }else{
+                  // assume 0 if doesn't exist
+                  graphObj[utm][date] = 0;
+                }
+              })
             }else{
-              console.log(utm);
+              // this is if the conversion event has no corresponding utm prop
+              _.each(dates, function(initializationEventCount, date){
+                graphObj[utm][date] = 0;
+              });
             }
           });
           console.log(graphObj);
