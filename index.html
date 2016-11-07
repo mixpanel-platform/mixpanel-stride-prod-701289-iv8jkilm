@@ -32,7 +32,7 @@
       
       // First segmentation query
       MP.api.segment(initializationEvent, segProp, params).done(function(results){
-        console.log(results);
+        console.log(results.values());
       });
       // MP.api.segment(eventName, propName, dateRange).done(function(results) {
       //   eventGraph.MPChart('setData', results);
