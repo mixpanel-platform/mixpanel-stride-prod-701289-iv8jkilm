@@ -38,10 +38,10 @@
           var initializationResults = results.values();
           var conversionResults = results2.values();
           _.each(results.values(), function(utm, value){
-            utms.add(utm);
+            utms.add(value);
           });
           _.each(results2.values(), function(utm, value){
-            utms.add(utm);
+            utms.add(value);
           });
           utms.forEach(function(utm){
             console.log(utm);
