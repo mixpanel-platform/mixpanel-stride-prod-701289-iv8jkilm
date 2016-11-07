@@ -33,8 +33,22 @@
       // First segmentation query
       MP.api.segment(initializationEvent, segProp, params).done(function(results){
         MP.api.segment(conversionEvent, segProp, params).done(function(results2){
-          console.log(results.values());
-          console.log(results2.values());
+          var graphObj = {};
+          var utms = new Set();
+          var initializationResults = results.values();
+          var conversionResults = results2.values();
+          _.each(results.values(), function(utm){
+            utms.add(utm);
+          });
+          _.each(results2.values(), function(utm){
+            utms.add(utm);
+          });
+          _.each(utms, function(utm){
+            console.log(utm);
+          });
+          
+          eventGraph.MPChart('setData', graphObj);
+          
         });
       });
       // MP.api.segment(eventName, propName, dateRange).done(function(results) {
