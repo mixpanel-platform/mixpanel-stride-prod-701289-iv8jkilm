@@ -37,13 +37,8 @@
           var utms = new Set();
           var initializationResults = results.values();
           var conversionResults = results2.values();
-          _.each(results.values(), function(utm, value){
-            utms.add(value);
-          });
-          _.each(results2.values(), function(utm, value){
-            utms.add(value);
-          });
-          utms.forEach(function(utm){
+
+          _.each(initializationResults, function(dates, utm){
             console.log(utm);
           });
           
