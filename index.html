@@ -37,8 +37,8 @@
           var utms = new Set();
           var initializationResults = results.values();
           var conversionResults = results2.values();
-          console.log(results.values());
           _.each(initializationResults, function(dates, utm){
+            console.log(dates);
             graphObj[utm] = {};
             if(utm in conversionResults){
               
