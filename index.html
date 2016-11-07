@@ -41,19 +41,9 @@
           _.each(initializationResults, function(dates, utm){
             graphObj[utm] = {};
             if(utm in conversionResults){
-              _.each(dates, function(initializationEventCount, date){
-                if(date in conversionResults[utm]){
-                  graphObj[utm][date] = conversionResults[utm][date] / initializationEventCount;
-                }else{
-                  // assume 0 if doesn't exist
-                  graphObj[utm][date] = 0;
-                }
-              })
+              
             }else{
-              // this is if the conversion event has no corresponding utm prop
-              _.each(dates, function(initializationEventCount, date){
-                graphObj[utm][date] = 0;
-              });
+              console.log(utm);
             }
           });
           console.log(graphObj);
