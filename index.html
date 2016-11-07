@@ -8,45 +8,36 @@
   </head>
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
-      <div id="eventSelect" style="float: left;"></div>
-      <div id="by" class="mixpanel-platform-label" style="margin-left: 10px; display: none;">by</div>
-      <div id="propSelect" style="float: left;"></div>
-      <div id="dateSelect" style="float: right;"></div>
-      <div style="clear: both;"></div>
       <div id="graph"></div>
     </div>
     <div id="table"></div>
     <script>
-      var eventSelect = $('#eventSelect').MPEventSelect();
-      var propSelect  = $('#propSelect').MPPropertySelect();
-      var dateSelect  = $('#dateSelect').MPDatepicker();
-      var eventGraph  = $('#graph').MPChart({chartType: 'line'});
-      var eventTable  = $('#table').MPTable({
-        showPercentages: true,
-        firstColHeader: 'Event'
-      });
+    var eventGraph  = $('#graph').MPChart({chartType: 'line'});
+    // var eventTable  = $('#table').MPTable({
+    //   showPercentages: true,
+    //   firstColHeader: 'Event'
+    // });
 
-      var runQuery = function() {
-        var eventName = eventSelect.MPEventSelect('value'),
-            propName  = propSelect.MPPropertySelect('value'),
-            dateRange = dateSelect.MPDatepicker('value');
-
-        console.log(eventName);
-
-        if (eventName) {
-          MP.api.segment(eventName, propName, dateRange).done(function(results) {
-            eventGraph.MPChart('setData', results);
-            eventTable.MPTable('setData', results);
-          });
-        }
+      var initializationEvent = "$custom_event:68925";
+      var conversionEvent = "$custom_event:72793";
+      
+      var segProp = "utm_source";
+      var params = {
+        from: moment().subtract(30, 'days'),    
+        to: moment(),                           
+        type: 'general',            
+        unit: 'day',                           
+        'where': 'not "@stridehealth.com" in properties["Email"]'    
       };
-      eventSelect.on('change', function(e, eventName) {
-        propSelect.MPPropertySelect('setEvent', eventName);
-        $("#by").show();
-        runQuery();
+      
+      // First segmentation query
+      MP.api.segment(initializationEvent, segProp, params).done(function(results){
+        console.log(results);
       });
-      propSelect.on('change', runQuery);
-      dateSelect.on('change', runQuery);
+      // MP.api.segment(eventName, propName, dateRange).done(function(results) {
+      //   eventGraph.MPChart('setData', results);
+      //   eventTable.MPTable('setData', results);
+      // });
     </script>
   </body>
 </html>
